@@ -839,8 +839,6 @@ static int psmouse_extensions(struct psmouse *psmouse,
  * protocol probes. Note that we follow up with full reset because
  * some mice put themselves to sleep when they see PSMOUSE_RESET_DIS.
  */
-	ps2_command(&psmouse->ps2dev, NULL, PSMOUSE_CMD_RESET_DIS);
-	psmouse_reset(psmouse);
 
 	if (max_proto >= PSMOUSE_IMEX &&
 	    psmouse_do_detect(im_explorer_detect,
@@ -870,7 +868,6 @@ static int psmouse_extensions(struct psmouse *psmouse,
 		psmouse_reset(psmouse);
 	}
 
-	return PSMOUSE_PS2;
 }
 
 static const struct psmouse_protocol psmouse_protocols[] = {
