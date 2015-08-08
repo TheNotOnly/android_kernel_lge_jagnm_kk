@@ -1,0 +1,2 @@
+kernel/arch/arm/mach-msm/lge/lge_bootloader_log.ko
+kernel/arch/arm/mach-msm/lge/lge_handle_panic.ko
