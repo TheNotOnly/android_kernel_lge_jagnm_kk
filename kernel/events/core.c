@@ -3003,13 +3003,10 @@ static int perf_release(struct inode *inode, struct file *file)
 	}
 
 	perf_event_release_kernel(event);
-}
-
-static int perf_release(struct inode *inode, struct file *file)
-{
-	put_event(file->private_data);
 	return 0;
 }
+
+
 
 u64 perf_event_read_value(struct perf_event *event, u64 *enabled, u64 *running)
 {
@@ -6549,11 +6546,6 @@ static void sync_child_event(struct perf_event *child_event,
 	list_del_init(&child_event->child_list);
 	mutex_unlock(&parent_event->child_mutex);
 
-	/*
-	 * Release the parent event, if this was the last
-	 * reference to it.
-	 */
-	put_event(parent_event);
 }
 
 static void
@@ -6697,8 +6689,6 @@ static void perf_free_event(struct perf_event *event,
 	mutex_lock(&parent->child_mutex);
 	list_del_init(&event->child_list);
 	mutex_unlock(&parent->child_mutex);
-
-	put_event(parent);
 
 	perf_group_detach(event);
 	list_del_event(event, ctx);

@@ -101,7 +101,6 @@ static int snd_hwdep_open(struct inode *inode, struct file * file)
 		return -ENODEV;
 
 	if (!try_module_get(hw->card->module)) {
-		snd_card_unref(hw->card);
 		return -EFAULT;
 	}
 
@@ -154,7 +153,6 @@ static int snd_hwdep_open(struct inode *inode, struct file * file)
 	mutex_unlock(&hw->open_mutex);
 	if (err < 0)
 		module_put(hw->card->module);
-	snd_card_unref(hw->card);
 	return err;
 }
 
